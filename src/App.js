@@ -1,10 +1,7 @@
 import uniqueId from 'lodash/uniqueId.js';
 import { useData } from './services/DataProvider.js';
 import React, { useEffect, useState } from 'react';
-import Filters from './features/filter/Filters.js';
-import LoadingButton from './features/loadingButton/LoadingButton.js';
-import Tickets from './features/tickets/Tickets.js'
-import SortingButtons from './features/sortingButtons/sortingButtons.js';
+import { Filters, LoadingButton, SortingButtons, Tickets } from './features';
 import logo from './img/Logo.svg';
 
 
