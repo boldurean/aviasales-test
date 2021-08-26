@@ -1,0 +1,29 @@
+
+*, *:before, *:after {
+   box-sizing: border-box;
+}
+
+body {
+   font: normal normal normal 16px/1.5 'Open Sans', sans-serif;
+   background: #F3F7FA;
+}
+
+header {
+   margin: 50px 0 0;
+   text-align: center;
+}
+
+main {
+   margin: 0 auto;
+   padding: 0 100px 50px;
+   display: flex;
+   justify-content: space-between;
+   max-width: 960px;
+   height: auto;
+}
+
+
+.tickets__container {
+   width: 500px;
+
+}

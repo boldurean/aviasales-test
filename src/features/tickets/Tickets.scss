@@ -1,0 +1,91 @@
+@import "src/styles/variables";
+
+.ticket {
+   padding: 20px;
+   background: #FFFFFF;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+   border-radius: 5px;
+   & + .ticket {
+      margin: 10px 0;
+   }
+   &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      p {
+         margin: 0;
+         font-weight: 400;
+         font-size: 24px;
+         line-height: 24px;
+         color: $base-blue;
+      }
+    }
+
+   &__segments {
+      .segment {
+         display: flex;
+         justify-content: space-between;
+         align-items: flex-start;
+         min-height: 39px;
+         margin: 10px 0;
+         p {
+            margin: 0;
+         }
+         .route, .duration, .stops {
+            flex-basis: 33.33%;
+         }
+         .head {
+            color: #A0B0B9;
+            font-size: 12px;
+            line-height: 18px;
+         }
+         .info {
+            font-size: 14px;
+            line-height: 21px;
+            color: $base-text;
+         }
+      }
+   }
+}
+
+$offset: 187;
+$duration: 1.4s;
+
+.spinner {
+   animation: rotator $duration linear infinite;
+}
+
+@keyframes rotator {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(270deg); }
+}
+
+.path {
+   stroke-dasharray: $offset;
+   stroke-dashoffset: 0;
+   transform-origin: center;
+   animation:
+           dash $duration ease-in-out infinite,
+           colors ($duration*4) ease-in-out infinite;
+}
+
+@keyframes colors {
+   0% { stroke: #4285F4; }
+   25% { stroke: #DE3E35; }
+   50% { stroke: #F7C223; }
+   75% { stroke: #1B9A59; }
+   100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+   0% { stroke-dashoffset: $offset; }
+   50% {
+      stroke-dashoffset: $offset/4;
+      transform:rotate(135deg);
+   }
+   100% {
+      stroke-dashoffset: $offset;
+      transform:rotate(450deg);
+   }
+}

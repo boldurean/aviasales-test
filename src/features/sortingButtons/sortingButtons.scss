@@ -1,0 +1,38 @@
+@import "src/styles/variables";
+
+.sorting-buttons-wrapper {
+   display: flex;
+   width: 100%;
+   border: 1px solid #DFE5EC;
+   border-radius: 5px;
+   overflow: hidden;
+   margin-bottom: 20px;
+   button {
+      display: flex;
+      padding: 15px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      flex-grow: 1;
+      border: none;
+      background: #FFFFFF;
+      cursor: pointer;
+
+      &:hover {
+         background: $base-blue-hover;
+      }
+
+      &[data-active="true"] {
+         background: $base-blue;
+         color: #FFFFFF;
+      }
+
+      &:nth-child(2) {
+         border-left: 1px solid #DFE5EC;
+         border-right: 1px solid #DFE5EC;
+      }
+   }
+}
