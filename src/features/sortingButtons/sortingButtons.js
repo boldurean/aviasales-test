@@ -1,6 +1,6 @@
 import orderBy from 'lodash/orderBy.js';
 import './sortingButtons.scss';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Button = ({ text, toggle, active, disabled }) => {
   return <button onClick={toggle} data-active={active} disabled={disabled} >{text}</button>
