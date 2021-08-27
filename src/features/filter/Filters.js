@@ -14,7 +14,7 @@ const ListItem = ({ name, text, handleToggle, checked }) => {
 }
 
 
-const initialState = {
+const filtersData = {
   all: {
     maxStops: 4,
     text: 'Все',
@@ -43,7 +43,7 @@ const initialState = {
 };
 
 const Filters = ({ setFilteredTickets, initialTickets }) => {
-  const [filters, setFilters] = useState(initialState);
+  const [filters, setFilters] = useState(filtersData);
 
   const handleUpdateFilters = (name) => () => {
     const newFilters = {...filters};
@@ -87,7 +87,7 @@ const Filters = ({ setFilteredTickets, initialTickets }) => {
       <p className="filters__title">Количество пересадок</p>
       <form className="filters__form">
         <ul className="filters__list">
-          {Object.entries(initialState).map(([name, { maxStops, text,  isChecked }]) => {
+          {Object.entries(filtersData).map(([name, { maxStops, text,  isChecked }]) => {
             return <ListItem key={maxStops} name={name} text={text} handleToggle={handleUpdateFilters(name)} checked={isChecked} />
           })
           }

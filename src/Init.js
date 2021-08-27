@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataProvider } from './services/DataProvider.js';
-import App from './App.js'
 import I18nProvider from './services/i18nProvider.js';
+import App from './App.js'
 import 'normalize.css';
 import './App.scss';
 

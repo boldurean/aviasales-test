@@ -1,4 +1,3 @@
-import uniqueId from 'lodash/uniqueId.js';
 import { useData } from './services/DataProvider.js';
 import React, { useEffect, useState } from 'react';
 import { Filters, LoadingButton, SortingButtons, Tickets } from './features';
@@ -18,8 +17,7 @@ const App = () => {
       return;
     }
     const { tickets } = flightData;
-    const ticketsWithId = tickets.map((t) => ({ id: uniqueId(), ...t }))
-    setInitialTickets(ticketsWithId);
+    setInitialTickets(tickets);
   }, [flightData])
 
 
