@@ -1,6 +1,6 @@
 import orderBy from 'lodash/orderBy.js';
 import './sortingButtons.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const Button = ({ text, toggle, active, disabled }) => {
   return <button onClick={toggle} data-active={active} disabled={disabled} >{text}</button>
@@ -17,51 +17,44 @@ const SortingButtons = React.memo(
   ({ filteredTickets, setTickets }) => {
     const [currentActive, setCurrentActive] = useState('optimal');
 
-    const handleSortGenerator = (type) => {
-      switch (type) {
-        case 'price':
-          return () => {
-            const sorted = orderBy(filteredTickets, 'price');
-            setTickets(sorted);
+    const handleSortGenerator = useCallback(
+      (type) => {
+
+        switch (type) {
+          case 'price':
+            const byPrice = orderBy(filteredTickets, 'price');
+            setTickets(byPrice);
             setCurrentActive(type);
-          }
-        case 'duration':
-          return () => {
-            const sorted = orderBy(filteredTickets, (ticket) => {
+            break;
+          case 'duration':
+            const byDuration = orderBy(filteredTickets, (ticket) => {
               return ticket.segments.reduce((acc, s) => acc + s.duration, 0)
             }, ['asc']);
-            setTickets(sorted);
+            setTickets(byDuration);
             setCurrentActive(type);
-          };
-        default:
-          return () => {
-            const sorted = orderBy(filteredTickets, (ticket) => {
+            break;
+          default:
+            const byDefault = orderBy(filteredTickets, (ticket) => {
               return ticket.price + ticket.segments.reduce((acc, s) => acc + s.duration, 0)
             }, ['asc']);
-            setTickets(sorted);
+            setTickets(byDefault);
             setCurrentActive(type);
-          };
-      }
-    };
+        }
+      }, [filteredTickets, setTickets]
+    );
 
     useEffect(() => {
-      const initialSort = () => {
-        const sorted = orderBy(filteredTickets, (ticket) => {
-          return ticket.price + ticket.segments.reduce((acc, s) => acc + s.duration, 0)
-        }, ['asc']);
-        setTickets(sorted);
-      };
-      initialSort();
-    }, [filteredTickets, setTickets])
+      handleSortGenerator(currentActive);
+    },[currentActive, handleSortGenerator])
 
-
+    console.log('render sorting buttons')
     return (
       <div className="sorting-buttons-wrapper">
         {buttons.map(({ type, text }) =>
           <Button
             key={type}
             text={text}
-            toggle={handleSortGenerator(type)}
+            toggle={() => handleSortGenerator(type)}
             active={currentActive === type}
             disabled={!filteredTickets.length}
           />)}
