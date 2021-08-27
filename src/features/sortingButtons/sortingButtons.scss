@@ -21,13 +21,16 @@
       background: #FFFFFF;
       cursor: pointer;
 
-      &:hover {
+      &:hover:enabled {
          background: $base-blue-hover;
       }
 
       &[data-active="true"] {
          background: $base-blue;
          color: #FFFFFF;
+         &:hover {
+            background: $base-blue;
+         }
       }
 
       &:nth-child(2) {

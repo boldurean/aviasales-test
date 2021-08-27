@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatCurrency, formatTime, formatDurration } from '../../services/utils.js';
 import './Tickets.scss';
@@ -40,23 +41,35 @@ const Ticket = ({ price, carrier, segments }) => {
   );
 }
 
-const Tickets = ({ sortedTicekts, showCount }) => {
+const Spinner = () => {
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+     return setError('Ошибка сети, попробуйте перезагрузить страницу');
+    }, 3000)
+    return () => clearTimeout(timer);
+  }, [])
+
+  return(
+    <div className="tickets">
+      <div className="loader"></div>
+      <p>{error}</p>
+    </div>
+  );
+}
+
+const Tickets = ({ tickets, showCount }) => {
 
 
-  if (!sortedTicekts) {
-    return (
-      <div className="tickets__container">
-        <svg className="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-          <circle className="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-        </svg>
-      </div>
-    );
+  if (!tickets.length) {
+    return <Spinner />;
   }
 
   return (
     <div className="tickets">
       {
-        sortedTicekts
+        tickets
           .slice(0, showCount)
           .map(({ id, price, carrier, segments }) => <Ticket key={id} price={price} carrier={carrier} segments={segments} /> )
       }

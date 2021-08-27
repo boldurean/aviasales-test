@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Filters.style.scss';
+import { useData } from '../../services/DataProvider.js';
 
-const ListItem = ({ name, text, handleToggle, checked }) => {
+const ListItem = ({ name, text, handleToggle, checked, disabled }) => {
   return (
     <li className='filters__item'>
       <label className='filters__item__container'>
         {text}
-        <input name={name} type="checkbox" onChange={handleToggle} checked={checked}/>
+        <input name={name} type="checkbox" onChange={handleToggle} checked={checked} disabled={disabled}/>
         <span className="checkmark"/>
       </label>
     </li>
@@ -15,35 +16,18 @@ const ListItem = ({ name, text, handleToggle, checked }) => {
 
 
 const filtersData = {
-  all: {
-    maxStops: 4,
-    text: 'Все',
-    isChecked: true,
-  },
-  without: {
-    maxStops: 0,
-    text: 'Без пересадок',
-    isChecked: false,
-  },
-  one: {
-    maxStops: 1,
-    text: '1 пересадка',
-    isChecked: false,
-  },
-  two: {
-    maxStops: 2,
-    text: '2 пересадки',
-    isChecked: false,
-  },
-  three: {
-    maxStops: 3,
-    text: '3 пересадки',
-    isChecked: false
-  },
+  all: { maxStops: 4, text: 'Все', isChecked: true },
+  none: { maxStops: 0, text: 'Без пересадок', isChecked: false },
+  one: { maxStops: 1, text: '1 пересадка', isChecked: false },
+  two: { maxStops: 2, text: '2 пересадки', isChecked: false },
+  three: {maxStops: 3, text: '3 пересадки', isChecked: false},
 };
 
 const Filters = ({ setFilteredTickets, initialTickets }) => {
   const [filters, setFilters] = useState(filtersData);
+  const { isNetworkError } = useData();
+
+  const disabled = isNetworkError;
 
   const handleUpdateFilters = (name) => () => {
     const newFilters = {...filters};
@@ -69,18 +53,22 @@ const Filters = ({ setFilteredTickets, initialTickets }) => {
   }
 
   useEffect(() => {
-    if (!initialTickets) return;
-    const active = Object.values(filters)
+    if (!initialTickets) {
+      setFilteredTickets(null)
+      return
+    };
+
+    const activeFilters = Object.values(filters)
       .filter((f) => f.isChecked)
       .map((f) => f.maxStops);
-    const maxStops = Math.max(...active)
 
+    const maxStops = Math.max(...activeFilters)
     const newTicketsList = initialTickets.filter((ticket) => {
       const stops = ticket.segments.reduce((acc, direction) => acc + direction.stops.length, 0);
       return stops <= maxStops;
     })
     setFilteredTickets(newTicketsList);
-  }, [initialTickets, filters, setFilteredTickets])
+  }, [filters, initialTickets, setFilteredTickets])
 
   return (
     <div className="filters__container">
@@ -88,7 +76,16 @@ const Filters = ({ setFilteredTickets, initialTickets }) => {
       <form className="filters__form">
         <ul className="filters__list">
           {Object.entries(filtersData).map(([name, { maxStops, text,  isChecked }]) => {
-            return <ListItem key={maxStops} name={name} text={text} handleToggle={handleUpdateFilters(name)} checked={isChecked} />
+            return (
+              <ListItem
+                key={maxStops}
+                name={name}
+                text={text}
+                handleToggle={handleUpdateFilters(name)}
+                checked={isChecked}
+                disabled={disabled}
+              />
+            );
           })
           }
         </ul>

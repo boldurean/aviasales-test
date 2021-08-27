@@ -7,6 +7,7 @@ const useData = () =>  useContext(dataContext);
 
 const DataProvider = ({ children }) => {
   const [flightData, setFlightData] = useState(null);
+  const [isNetworkError, setIsNetworkError] = useState(false);
   const { Provider } = dataContext;
 
   useEffect(() => {
@@ -17,7 +18,8 @@ const DataProvider = ({ children }) => {
        setFlightData(data);
      } catch (err) {
        console.error(err);
-       setFlightData(null);
+       setFlightData(null)
+       setIsNetworkError(true);
      }
     }
     getData();
@@ -26,6 +28,7 @@ const DataProvider = ({ children }) => {
   return (
     <Provider value={{
         flightData,
+        isNetworkError,
       }}>
       {children}
     </Provider>

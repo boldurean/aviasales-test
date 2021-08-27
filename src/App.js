@@ -1,3 +1,4 @@
+import uniqueId from 'lodash/uniqueId.js';
 import { useData } from './services/DataProvider.js';
 import React, { useEffect, useState } from 'react';
 import { Filters, LoadingButton, SortingButtons, Tickets } from './features';
@@ -5,20 +6,18 @@ import logo from './img/Logo.svg';
 
 
 const App = () => {
-  const [filteredTickets, setFilteredTickets] = useState([]);
   const [initialTickets, setInitialTickets] = useState([]);
-  const [sortedTickets, setSortedTickets] = useState([]);
+  const [filteredTickets, setFilteredTickets] = useState([]);
+  const [tickets, setTickets] = useState([]);
   const [showCount, setShowCount] = useState(5);
-  const { flightData } = useData();
+  const { flightData, isNetworkError } = useData();
 
   useEffect(() => {
-    if (!flightData) {
-      setInitialTickets(null);
-      return;
-    }
+    if (!flightData) return;
     const { tickets } = flightData;
-    setInitialTickets(tickets);
-  }, [flightData])
+    const ticketsWithId = tickets.map((t) => ({ id: uniqueId(), ...t }));
+    setInitialTickets(ticketsWithId);
+  }, [flightData, isNetworkError])
 
 
   return (
@@ -31,8 +30,8 @@ const App = () => {
         <main className="main">
           <Filters initialTickets={initialTickets} setFilteredTickets={setFilteredTickets} />
           <div className="tickets__container">
-            <SortingButtons filteredTickets={filteredTickets} setSortedTickets={setSortedTickets} showCount={showCount} />
-            <Tickets sortedTicekts={sortedTickets} showCount={showCount}/>
+            <SortingButtons filteredTickets={filteredTickets} setTickets={setTickets} />
+            <Tickets tickets={tickets} showCount={showCount}/>
             <LoadingButton showCount={showCount} setShowCount={setShowCount}/>
           </div>
         </main>
