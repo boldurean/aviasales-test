@@ -1,2 +1,2 @@
-## Aviasales Front-end test-assigment
+## Aviasales Front-end test-assignment
 
