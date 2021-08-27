@@ -26,7 +26,7 @@
       padding: 20px;
       display: block;
       height: 40px;
-      &:hover {
+      &:hover + &__container input:hover {
          background-color: #F1FCFF;
       }
       &__container {
@@ -44,8 +44,10 @@
          input {
             position: absolute;
             opacity: 0;
-            height: 0;
-            width: 0;
+            height: 40px;
+            width: 210px;
+            left: 0;
+            visibility: hidden;
             &:checked ~ .checkmark:after {
                display: block;
             }
