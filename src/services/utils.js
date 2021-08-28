@@ -16,15 +16,13 @@ export const formatTime = (mins) => {
   return `${formattedDays}${formattedHours}${formattedMinutes}`;
 };
 
-export const formatDurration = (date, duration) => {
+export const formatDuration = (date, duration) => {
   const departureTime = format(date, 'HH:mm');
-  const arrivalDate = add(date, { minutes: duration })
+  const arrivalDate = add(date, { minutes: duration });
   const arrivalTime = format(arrivalDate, 'HH:mm');
 
   return `${departureTime} - ${arrivalTime}`;
-}
+};
 
 export const formatCurrency = (amount) => new Intl
   .NumberFormat('ru-RU', { currency: 'RUB' }).format(amount);
-
-

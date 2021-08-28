@@ -1,11 +1,11 @@
-import { default as Filters } from './filter/Filters.js'
-import { default as SortingButtons } from './sortingButtons/sortingButtons.js'
-import { default as LoadingButton } from './loadingButton/LoadingButton.js'
-import { default as Tickets } from './tickets/Tickets.js'
+import Filters from './filter/Filters.jsx';
+import SortingButtons from './sortingButtons/sortingButtons.jsx';
+import LoadingButton from './loadingButton/LoadingButton.jsx';
+import Tickets from './tickets/Tickets.jsx';
 
 export {
   Filters,
   SortingButtons,
   LoadingButton,
-  Tickets
+  Tickets,
 };

@@ -43,10 +43,11 @@
          .route, .duration, .stops {
             flex-basis: 33.33%;
          }
-         .head {
+         .title {
             color: #A0B0B9;
             font-size: 12px;
             line-height: 18px;
+            text-transform: uppercase;
          }
          .info {
             font-size: 14px;
