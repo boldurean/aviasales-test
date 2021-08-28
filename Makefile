@@ -16,3 +16,5 @@ make test:
 
 make eject:
 	npm run eject
+
+.PHONY: test
