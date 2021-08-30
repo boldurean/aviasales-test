@@ -5,7 +5,7 @@
 }
 
 html {
-   font: normal normal normal $html-font-size/1.5 'Open Sans', sans-serif;
+   font: normal normal normal 16px/1.5 'Open Sans', sans-serif;
 }
 
 body {
@@ -34,8 +34,30 @@ main {
 }
 
 @media (max-width: 975px) {
+   main {
+      padding: 5%;
+      display: flex;
+      width: 100%;
+      height: auto;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+   }
 
-   $html-font-size: 10px;
+   .filters__container {
+      margin-bottom: rem(20px);
+      margin-right: 0;
+   }
+}
+
+@media (max-width: 575px) {
+
+   $html-font-size: 12px;
+
+   html {
+      font-size: $html-font-size;
+   }
 
    main {
       padding: 5%;
