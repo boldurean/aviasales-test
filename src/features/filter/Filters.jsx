@@ -14,7 +14,7 @@ const ListItem = ({
   </li>
 );
 
-const Filters = ({ setFilteredTickets, initialTickets }) => {
+const Filters = ({ setApplyFilters }) => {
   const [filters, setFilters] = useState([
     {
       type: 'all', maxStops: Infinity, text: 'Все', isChecked: true,
@@ -33,8 +33,6 @@ const Filters = ({ setFilteredTickets, initialTickets }) => {
     },
   ]);
   const { isNetworkError } = useData();
-
-  const disabled = isNetworkError;
 
   const handleUpdateFilters = (type) => () => {
     const newFilters = [...filters];
@@ -72,27 +70,27 @@ const Filters = ({ setFilteredTickets, initialTickets }) => {
   };
 
   useEffect(() => {
-    if (!initialTickets) {
-      setFilteredTickets(null);
-      return;
-    }
-
     const currentMaxStops = filters
       .filter((f) => f.isChecked)
       .map((f) => f.maxStops);
 
     const maxStop = Math.max(...currentMaxStops);
 
-    const newTicketsList = initialTickets.filter((ticket) => {
-      const stops = ticket.segments.reduce((acc, direction) => acc + direction.stops.length, 0);
+    const applyFilters = (ticket) => {
+      const stops = ticket?.segments.reduce((acc, direction) => acc + direction.stops.length, 0);
       return stops <= maxStop;
-    });
-    setFilteredTickets(newTicketsList);
-  }, [filters, initialTickets, setFilteredTickets]);
+    };
+
+    setApplyFilters(() => applyFilters);
+  }, [filters, setApplyFilters]);
+
+  const disabled = isNetworkError;
 
   return (
     <div className="filters__container">
-      <p className="filters__title">Количество пересадок</p>
+      <p className="filters__title">
+        Количество пересадок
+      </p>
       <form className="filters__form">
         <ul className="filters__list">
           {filters.map(({

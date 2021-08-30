@@ -18,4 +18,4 @@ const LoadingButton = ({ showCount, setShowCount }) => {
     );
 };
 
-export default LoadingButton;
+export default React.memo(LoadingButton);

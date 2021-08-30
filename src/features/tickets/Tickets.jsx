@@ -70,7 +70,9 @@ const Spinner = () => {
   );
 };
 
-const Tickets = ({ tickets, showCount }) => {
+const Tickets = ({
+  applyFilters, applySorting, tickets, showCount,
+}) => {
   if (!tickets.length) {
     return <Spinner />;
   }
@@ -79,6 +81,8 @@ const Tickets = ({ tickets, showCount }) => {
     <div className="tickets">
       {
         tickets
+          .filter(applyFilters)
+          .sort(applySorting)
           .slice(0, showCount)
           .map(({
             id, price, carrier, segments,

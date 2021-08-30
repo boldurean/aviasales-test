@@ -1,6 +1,6 @@
-import orderBy from 'lodash/orderBy.js';
 import './sortingButtons.scss';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useData } from '../../services/DataProvider.jsx';
 
 const Button = ({
   text, toggle, active, disabled,
@@ -16,8 +16,10 @@ const buttons = [
   { type: 'average', text: 'Оптимальный' },
 ];
 
-const SortingButtons = ({ filteredTickets, setTickets }) => {
+const SortingButtons = ({ setApplySorting }) => {
   const [currentActive, setCurrentActive] = useState('average');
+
+  const { isNetworkError } = useData();
 
   const handleSortGenerator = useCallback((type) => {
     // The following case clauses are wrapped into blocks using brackets (es6)
@@ -26,27 +28,61 @@ const SortingButtons = ({ filteredTickets, setTickets }) => {
     // case where it is defined is reached.
     switch (type) {
       case 'price': {
-        const byPrice = orderBy(filteredTickets, 'price');
-        setTickets(byPrice);
+        const applySorting = (firstEl, secondEl) => {
+          if (firstEl?.price < secondEl?.price) {
+            return -1;
+          }
+          if (firstEl?.price > secondEl?.price) {
+            return 1;
+          }
+          return 0;
+        };
+        setApplySorting(() => applySorting);
         setCurrentActive(type);
         break;
       }
       case 'duration': {
-        const byDuration = orderBy(filteredTickets, (ticket) => ticket.segments.reduce((acc, s) => acc + s.duration, 0), ['asc']);
-        setTickets(byDuration);
+        const applySorting = (firstEl, secondEl) => {
+          const firstElStops = firstEl?.segments.reduce((acc, s) => acc + s.duration, 0);
+          const secondElStops = secondEl?.segments.reduce((acc, s) => acc + s.duration, 0);
+
+          if (firstElStops < secondElStops) {
+            return -1;
+          }
+          if (firstElStops > secondElStops) {
+            return 1;
+          }
+          return 0;
+        };
+
+        setApplySorting(() => applySorting);
         setCurrentActive(type);
         break;
       }
       case 'average': {
-        const byAverage = orderBy(filteredTickets, (ticket) => ticket.price + ticket.segments.reduce((acc, s) => acc + s.duration, 0), ['asc']);
-        setTickets(byAverage);
+        const applySorting = (firstEl, secondEl) => {
+          const firstElStops = firstEl?.price + firstEl?.segments
+            .reduce((acc, s) => acc + s.duration, 0);
+          const secondElStops = secondEl?.price + secondEl?.segments
+            .reduce((acc, s) => acc + s.duration, 0);
+
+          if (firstElStops < secondElStops) {
+            return -1;
+          }
+          if (firstElStops > secondElStops) {
+            return 1;
+          }
+          return 0;
+        };
+
+        setApplySorting(() => applySorting);
         setCurrentActive(type);
         break;
       }
       default:
         throw new Error(`Unknown case type ${type}`);
     }
-  }, [filteredTickets, setTickets]);
+  }, [setApplySorting]);
 
   useEffect(() => {
     handleSortGenerator(currentActive);
@@ -60,7 +96,7 @@ const SortingButtons = ({ filteredTickets, setTickets }) => {
           text={text}
           toggle={() => handleSortGenerator(type)}
           active={currentActive === type}
-          disabled={!filteredTickets.length}
+          disabled={isNetworkError}
         />
       ))}
     </div>
