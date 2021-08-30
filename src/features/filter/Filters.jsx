@@ -77,7 +77,7 @@ const Filters = ({ setApplyFilters }) => {
     const maxStop = Math.max(...currentMaxStops);
 
     const applyFilters = (ticket) => {
-      const stops = ticket?.segments.reduce((acc, direction) => acc + direction.stops.length, 0);
+      const stops = ticket.segments.reduce((acc, direction) => acc + direction.stops.length, 0);
       return stops <= maxStop;
     };
 

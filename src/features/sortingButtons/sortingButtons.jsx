@@ -29,10 +29,10 @@ const SortingButtons = ({ setApplySorting }) => {
     switch (type) {
       case 'price': {
         const applySorting = (firstEl, secondEl) => {
-          if (firstEl?.price < secondEl?.price) {
+          if (firstEl.price < secondEl.price) {
             return -1;
           }
-          if (firstEl?.price > secondEl?.price) {
+          if (firstEl.price > secondEl.price) {
             return 1;
           }
           return 0;
@@ -43,8 +43,8 @@ const SortingButtons = ({ setApplySorting }) => {
       }
       case 'duration': {
         const applySorting = (firstEl, secondEl) => {
-          const firstElStops = firstEl?.segments.reduce((acc, s) => acc + s.duration, 0);
-          const secondElStops = secondEl?.segments.reduce((acc, s) => acc + s.duration, 0);
+          const firstElStops = firstEl.segments.reduce((acc, s) => acc + s.duration, 0);
+          const secondElStops = secondEl.segments.reduce((acc, s) => acc + s.duration, 0);
 
           if (firstElStops < secondElStops) {
             return -1;
@@ -61,9 +61,9 @@ const SortingButtons = ({ setApplySorting }) => {
       }
       case 'average': {
         const applySorting = (firstEl, secondEl) => {
-          const firstElStops = firstEl?.price + firstEl?.segments
+          const firstElStops = firstEl.price + firstEl.segments
             .reduce((acc, s) => acc + s.duration, 0);
-          const secondElStops = secondEl?.price + secondEl?.segments
+          const secondElStops = secondEl.price + secondEl.segments
             .reduce((acc, s) => acc + s.duration, 0);
 
           if (firstElStops < secondElStops) {
