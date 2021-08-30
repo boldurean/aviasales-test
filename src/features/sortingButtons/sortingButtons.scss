@@ -39,3 +39,17 @@
       }
    }
 }
+
+@media (max-width: 975px) {
+   .sorting-buttons-wrapper {
+      flex-direction: column;
+      align-items: center;
+      border: none;
+
+      button {
+         border: 1px solid #DFE5EC;
+         border-radius: 5px;
+         width: 150px;
+      }
+   }
+}
