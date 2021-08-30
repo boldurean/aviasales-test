@@ -6,14 +6,14 @@
    border: 1px solid #DFE5EC;
    border-radius: 5px;
    overflow: hidden;
-   margin-bottom: 20px;
+   margin-bottom: rem(20px);
    button {
       display: flex;
-      padding: 15px;
+      padding: rem(15px);
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-size: 12px;
+      font-size: rem(12px);
       letter-spacing: 0.5px;
       text-transform: uppercase;
       flex-grow: 1;
@@ -36,20 +36,6 @@
       &:nth-child(2) {
          border-left: 1px solid #DFE5EC;
          border-right: 1px solid #DFE5EC;
-      }
-   }
-}
-
-@media (max-width: 975px) {
-   .sorting-buttons-wrapper {
-      flex-direction: column;
-      align-items: center;
-      border: none;
-
-      button {
-         border: 1px solid #DFE5EC;
-         border-radius: 5px;
-         width: 150px;
       }
    }
 }

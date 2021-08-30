@@ -1,17 +1,19 @@
+@import "src/styles/variables";
+
 .filters {
    &__container {
-      padding: 20px 0;
-      width: 234px;
+      padding: rem(20px) 0;
+      width: rem(234px);
       height: fit-content;
       background: #FFFFFF;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
    }
    &__title {
-      margin: 0 0 10px 20px;
+      margin: 0 0 rem(10px) rem(20px);
       font-style: normal;
-      font-size: 12px;
-      line-height: 12px;
+      font-size: rem(12px);
+      line-height: rem(12px);
       letter-spacing: 0.5px;
       text-transform: uppercase;
    }
@@ -23,9 +25,9 @@
       list-style: none;
    }
    &__item {
-      padding: 20px;
+      padding: rem(20px);
       display: block;
-      height: 40px;
+      height: rem(40px);
       &:hover + &__container input:hover {
          background-color: #F1FCFF;
       }
@@ -34,18 +36,18 @@
          align-items: center;
          height: 100%;
          position: relative;
-         padding-left: 30px;
+         padding-left: rem(30px);
          font-weight: 400;
          vertical-align: middle;
          cursor: pointer;
-         font-size: 13px;
+         font-size: rem(13px);
          color: #4A4A4A;
 
          input {
             position: absolute;
             opacity: 0;
-            height: 40px;
-            width: 210px;
+            height: rem(40px);
+            width: rem(210px);
             left: 0;
             visibility: hidden;
             &:checked ~ .checkmark:after {
@@ -60,18 +62,18 @@
             position: absolute;
             top: auto;
             left: 0;
-            width: 20px;
-            height: 20px;
+            width: rem(20px);
+            height: rem(20px);
             border: 1px solid #2196F3;
 
             &:after {
                content: '';
                position: absolute;
                display: none;
-               left: 5px;
-               top: 1px;
-               width: 8px;
-               height: 12px;
+               left: rem(5px);
+               top: rem(1px);
+               width: rem(8px);
+               height: rem(12px);
                border: solid #2196F3;
                border-width: 0 2px 2px 0;
                -webkit-transform: rotate(45deg);

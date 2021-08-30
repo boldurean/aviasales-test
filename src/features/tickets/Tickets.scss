@@ -8,13 +8,13 @@
 }
 
 .ticket {
-   padding: 20px;
+   padding: rem(20px);
    background: #FFFFFF;
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
    border-radius: 5px;
    width: 100%;
    & + .ticket {
-      margin: 10px 0;
+      margin: rem(10px) 0;
    }
    &__header {
       display: flex;
@@ -24,8 +24,8 @@
       p {
          margin: 0;
          font-weight: 400;
-         font-size: 24px;
-         line-height: 24px;
+         font-size: rem(24px);
+         line-height: rem(24px);
          color: $base-blue;
       }
     }
@@ -35,8 +35,8 @@
          display: flex;
          justify-content: space-between;
          align-items: flex-start;
-         min-height: 39px;
-         margin: 10px 0;
+         min-height: rem(39px);
+         margin: rem(10px) 0;
          p {
             margin: 0;
          }
@@ -45,13 +45,13 @@
          }
          .title {
             color: #A0B0B9;
-            font-size: 12px;
-            line-height: 18px;
+            font-size: rem(12px);
+            line-height: rem(18px);
             text-transform: uppercase;
          }
          .info {
-            font-size: 14px;
-            line-height: 21px;
+            font-size: rem(14px);
+            line-height: rem(21px);
             color: $base-text;
          }
       }

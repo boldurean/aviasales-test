@@ -1,3 +1,11 @@
 $base-blue: #2196F3;
 $base-text: #4A4A4A;
 $base-blue-hover: #F1FCFF;
+$html-font-size: 16px;
+
+@function stripUnit($value) {
+   @return $value / ($value * 0 + 1);
+}
+@function rem($pxValue) {
+   @return #{stripUnit($pxValue) / stripUnit($html-font-size)}rem;
+}
