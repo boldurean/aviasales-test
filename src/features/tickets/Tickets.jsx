@@ -9,7 +9,7 @@ const Ticket = ({
   const { t } = useTranslation();
 
   return (
-    <div className="ticket">
+    <div className="ticket" data-testid="ticket">
       <div className="ticket__header">
         <p className="price">
           {formatCurrency(price)}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Filters.style.scss';
-import { useData } from '../../services/DataProvider.jsx';
 
 const ListItem = ({
   type, text, handleToggle, checked, disabled,
@@ -14,7 +13,7 @@ const ListItem = ({
   </li>
 );
 
-const Filters = ({ setApplyFilters }) => {
+const Filters = ({ setApplyFilters, isNetworkError }) => {
   const [filters, setFilters] = useState([
     {
       type: 'all', maxStops: Infinity, text: 'Все', isChecked: true,
@@ -32,7 +31,6 @@ const Filters = ({ setApplyFilters }) => {
       type: 'three', maxStops: 3, text: '3 пересадки', isChecked: false,
     },
   ]);
-  const { isNetworkError } = useData();
 
   const handleUpdateFilters = (type) => () => {
     const newFilters = [...filters];
@@ -88,7 +86,7 @@ const Filters = ({ setApplyFilters }) => {
 
   return (
     <div className="filters__container">
-      <p className="filters__title">
+      <p className="filters__title" data-testid="filters-title">
         Количество пересадок
       </p>
       <form className="filters__form">

@@ -1,10 +1,7 @@
 import React from 'react';
 import './LoadingButton.scss';
-import { useData } from '../../services/DataProvider.jsx';
 
-const LoadingButton = ({ showCount, setShowCount }) => {
-  const { isNetworkError } = useData();
-
+const LoadingButton = ({ showCount, setShowCount, isNetworkError }) => {
   const handleClick = () => {
     setShowCount(showCount + 5);
   };

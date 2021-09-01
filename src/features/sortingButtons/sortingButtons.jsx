@@ -1,6 +1,5 @@
 import './sortingButtons.scss';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useData } from '../../services/DataProvider.jsx';
 
 const Button = ({
   text, toggle, active, disabled,
@@ -16,10 +15,8 @@ const buttons = [
   { type: 'average', text: 'Оптимальный' },
 ];
 
-const SortingButtons = ({ setApplySorting }) => {
+const SortingButtons = ({ setApplySorting, isNetworkError }) => {
   const [currentActive, setCurrentActive] = useState('average');
-
-  const { isNetworkError } = useData();
 
   const handleSortGenerator = useCallback((type) => {
     // The following case clauses are wrapped into blocks using brackets (es6)

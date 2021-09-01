@@ -1,10 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Init from './Init.jsx';
+import App from './App.jsx';
+import 'normalize.css';
+import './App.scss';
 
 render(
   <React.StrictMode>
-    <Init />
+    <App />
   </React.StrictMode>,
   document.getElementById('root'),
 );
